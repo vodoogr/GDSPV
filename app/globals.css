@@ -1,0 +1,335 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 222.2 84% 4.9%;
+    --card: 0 0% 100%;
+    --card-foreground: 222.2 84% 4.9%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 222.2 84% 4.9%;
+    --primary: 221.2 83.2% 53.3%;
+    --primary-foreground: 210 40% 98%;
+    --secondary: 210 40% 96%;
+    --secondary-foreground: 222.2 84% 4.9%;
+    --muted: 210 40% 96%;
+    --muted-foreground: 215.4 16.3% 46.9%;
+    --accent: 210 40% 96%;
+    --accent-foreground: 222.2 84% 4.9%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 40% 98%;
+    --border: 214.3 31.8% 91.4%;
+    --input: 214.3 31.8% 91.4%;
+    --ring: 221.2 83.2% 53.3%;
+    --radius: 0.75rem;
+
+    /* ZOHO CRM Style Variables */
+    --zoho-primary: 217 91% 60%;
+    --zoho-secondary: 210 40% 96%;
+    --zoho-accent: 142 76% 36%;
+    --zoho-warning: 38 92% 50%;
+    --zoho-danger: 0 84% 60%;
+    --zoho-sidebar: 220 13% 18%;
+    --zoho-header: 220 13% 15%;
+  }
+
+  .dark {
+    --background: 222.2 84% 4.9%;
+    --foreground: 210 40% 98%;
+    --card: 222.2 84% 4.9%;
+    --card-foreground: 210 40% 98%;
+    --popover: 222.2 84% 4.9%;
+    --popover-foreground: 210 40% 98%;
+    --primary: 217.2 91.2% 59.8%;
+    --primary-foreground: 222.2 84% 4.9%;
+    --secondary: 217.2 32.6% 17.5%;
+    --secondary-foreground: 210 40% 98%;
+    --muted: 217.2 32.6% 17.5%;
+    --muted-foreground: 215 20.2% 65.1%;
+    --accent: 217.2 32.6% 17.5%;
+    --accent-foreground: 210 40% 98%;
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 210 40% 98%;
+    --border: 217.2 32.6% 17.5%;
+    --input: 217.2 32.6% 17.5%;
+    --ring: 224.3 76.3% 94.1%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+    font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", sans-serif;
+  }
+}
+
+/* ZOHO CRM Style Components */
+.zoho-card {
+  @apply bg-white dark:bg-slate-800 rounded-lg shadow-sm border border-slate-200 dark:border-slate-700;
+  transition: all 0.2s ease-in-out;
+}
+
+.zoho-card:hover {
+  @apply shadow-md;
+  transform: translateY(-1px);
+}
+
+.zoho-header {
+  @apply bg-gradient-to-r from-blue-600 to-indigo-600 text-white;
+}
+
+.zoho-sidebar {
+  @apply bg-slate-900 text-slate-100;
+}
+
+.zoho-button-primary {
+  @apply bg-blue-600 hover:bg-blue-700 text-white font-medium px-4 py-2 rounded-md transition-colors;
+}
+
+.zoho-button-secondary {
+  @apply bg-slate-100 hover:bg-slate-200 text-slate-700 font-medium px-4 py-2 rounded-md transition-colors;
+}
+
+.zoho-input {
+  @apply border border-slate-300 rounded-md px-3 py-2 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors;
+}
+
+.zoho-table {
+  @apply w-full border-collapse;
+}
+
+.zoho-table th {
+  @apply bg-slate-50 dark:bg-slate-800 text-left font-medium text-slate-700 dark:text-slate-300 px-4 py-3 border-b border-slate-200 dark:border-slate-700;
+}
+
+.zoho-table td {
+  @apply px-4 py-3 border-b border-slate-100 dark:border-slate-800 text-slate-600 dark:text-slate-400;
+}
+
+.zoho-table tr:hover {
+  @apply bg-slate-50 dark:bg-slate-800/50;
+}
+
+.zoho-badge {
+  @apply inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium;
+}
+
+.zoho-badge-success {
+  @apply bg-green-100 text-green-800 dark:bg-green-900/20 dark:text-green-400;
+}
+
+.zoho-badge-warning {
+  @apply bg-yellow-100 text-yellow-800 dark:bg-yellow-900/20 dark:text-yellow-400;
+}
+
+.zoho-badge-danger {
+  @apply bg-red-100 text-red-800 dark:bg-red-900/20 dark:text-red-400;
+}
+
+.zoho-badge-info {
+  @apply bg-blue-100 text-blue-800 dark:bg-blue-900/20 dark:text-blue-400;
+}
+
+.zoho-badge-primary {
+  @apply bg-blue-100 text-blue-800 dark:bg-blue-900/20 dark:text-blue-400;
+}
+
+.zoho-badge-secondary {
+  @apply bg-slate-100 text-slate-800 dark:bg-slate-900/20 dark:text-slate-400;
+}
+
+/* Custom animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.3s ease-out;
+}
+
+@keyframes slideInFromLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.animate-slide-in-left {
+  animation: slideInFromLeft 0.4s ease-out;
+}
+
+@keyframes pulse-subtle {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.8;
+  }
+}
+
+.animate-pulse-subtle {
+  animation: pulse-subtle 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  @apply bg-slate-100 dark:bg-slate-800;
+}
+
+::-webkit-scrollbar-thumb {
+  @apply bg-slate-300 dark:bg-slate-600 rounded-full;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  @apply bg-slate-400 dark:bg-slate-500;
+}
+
+/* ZOHO CRM specific styles */
+.crm-container {
+  @apply min-h-screen bg-slate-50 dark:bg-slate-900;
+}
+
+.crm-header {
+  @apply bg-white dark:bg-slate-800 border-b border-slate-200 dark:border-slate-700 px-6 py-4;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+}
+
+.crm-sidebar {
+  @apply bg-slate-900 text-slate-100 w-64 min-h-screen;
+}
+
+.crm-main-content {
+  @apply flex-1 p-6;
+}
+
+.crm-card-grid {
+  @apply grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6;
+}
+
+.crm-stats-card {
+  @apply bg-white dark:bg-slate-800 rounded-lg p-6 border border-slate-200 dark:border-slate-700;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
+  transition: all 0.2s ease-in-out;
+}
+
+.crm-stats-card:hover {
+  @apply shadow-lg;
+  transform: translateY(-2px);
+}
+
+.crm-table-container {
+  @apply bg-white dark:bg-slate-800 rounded-lg border border-slate-200 dark:border-slate-700 overflow-hidden;
+}
+
+.crm-filter-bar {
+  @apply bg-slate-50 dark:bg-slate-800 p-4 border-b border-slate-200 dark:border-slate-700;
+}
+
+.crm-pagination {
+  @apply flex items-center justify-between px-4 py-3 bg-white dark:bg-slate-800 border-t border-slate-200 dark:border-slate-700;
+}
+
+/* Status indicators */
+.status-active {
+  @apply bg-green-100 text-green-800 dark:bg-green-900/20 dark:text-green-400;
+}
+
+.status-pending {
+  @apply bg-yellow-100 text-yellow-800 dark:bg-yellow-900/20 dark:text-yellow-400;
+}
+
+.status-inactive {
+  @apply bg-red-100 text-red-800 dark:bg-red-900/20 dark:text-red-400;
+}
+
+.status-processing {
+  @apply bg-blue-100 text-blue-800 dark:bg-blue-900/20 dark:text-blue-400;
+}
+
+/* Form styles */
+.crm-form-group {
+  @apply space-y-2;
+}
+
+.crm-form-label {
+  @apply block text-sm font-medium text-slate-700 dark:text-slate-300;
+}
+
+.crm-form-input {
+  @apply w-full px-3 py-2 border border-slate-300 dark:border-slate-600 rounded-md shadow-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500 dark:bg-slate-700 dark:text-slate-100;
+}
+
+.crm-form-select {
+  @apply w-full px-3 py-2 border border-slate-300 dark:border-slate-600 rounded-md shadow-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500 dark:bg-slate-700 dark:text-slate-100;
+}
+
+/* Action buttons */
+.crm-action-button {
+  @apply inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 transition-colors;
+}
+
+.crm-action-primary {
+  @apply bg-blue-600 hover:bg-blue-700 text-white focus:ring-blue-500;
+}
+
+.crm-action-secondary {
+  @apply bg-slate-600 hover:bg-slate-700 text-white focus:ring-slate-500;
+}
+
+.crm-action-success {
+  @apply bg-green-600 hover:bg-green-700 text-white focus:ring-green-500;
+}
+
+.crm-action-warning {
+  @apply bg-yellow-600 hover:bg-yellow-700 text-white focus:ring-yellow-500;
+}
+
+.crm-action-danger {
+  @apply bg-red-600 hover:bg-red-700 text-white focus:ring-red-500;
+}
+
+/* Loading states */
+.crm-loading {
+  @apply animate-pulse;
+}
+
+.crm-skeleton {
+  @apply bg-slate-200 dark:bg-slate-700 rounded;
+}
+
+/* Responsive utilities */
+@media (max-width: 768px) {
+  .crm-card-grid {
+    @apply grid-cols-1;
+  }
+
+  .crm-table-container {
+    @apply overflow-x-auto;
+  }
+
+  .crm-filter-bar {
+    @apply space-y-2;
+  }
+}
