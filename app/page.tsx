@@ -3,13 +3,16 @@
 import { useState } from "react"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { BarChart3, Search, Upload, Inbox, TrendingUp, Settings } from "lucide-react"
+import { BarChart3, Search, Upload, Inbox, TrendingUp, Settings, Sparkles } from "lucide-react"
 import Dashboard from "@/components/dashboard"
 import SearchIncidencias from "@/components/search-incidencias"
 import IncidenciasImporter from "@/components/incidencias-importer"
 import RecibidaSection from "@/components/recibida-section"
 import AnalyticsDashboard from "@/components/analytics/analytics-dashboard"
+import NuevasIncidencias from "@/components/nuevas-incidencias"
 import DatabaseStatus from "@/components/database-status"
+import DataTypeVerifier from "@/components/data-type-verifier"
+import ScriptExecutor from "@/components/script-executor"
 import Header from "@/components/layout/header"
 import { useAuth } from "@/contexts/auth-context"
 import LoginPage from "@/components/login-page"
@@ -36,6 +39,7 @@ export default function Home() {
   const getAvailableTabs = (userRole: string) => {
     const baseTabs = [
       { id: "dashboard", label: "Dashboard", icon: BarChart3 },
+      { id: "nuevas", label: "Nuevas", icon: Sparkles },
       { id: "search", label: "Búsqueda", icon: Search },
       { id: "import", label: "Importar", icon: Upload },
     ]
@@ -75,7 +79,7 @@ export default function Home() {
 
         {/* Navegación Principal */}
         <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
-          <TabsList className="grid w-full grid-cols-3 lg:grid-cols-6 gap-1">
+          <TabsList className="grid w-full grid-cols-4 lg:grid-cols-7 gap-1">
             {availableTabs.map((tab) => {
               const Icon = tab.icon
               return (
@@ -88,7 +92,11 @@ export default function Home() {
           </TabsList>
 
           <TabsContent value="dashboard" className="space-y-6">
-            <Dashboard />
+            <Dashboard onNavigate={(tab) => setActiveTab(tab)} />
+          </TabsContent>
+
+          <TabsContent value="nuevas" className="space-y-6">
+            <NuevasIncidencias />
           </TabsContent>
 
           <TabsContent value="search" className="space-y-6">
@@ -122,10 +130,15 @@ export default function Home() {
                     </CardDescription>
                   </CardHeader>
                   <CardContent>
-                    <div className="text-center py-8">
-                      <Settings className="h-12 w-12 text-slate-400 mx-auto mb-4" />
-                      <h3 className="text-lg font-medium text-slate-600 mb-2">Panel de Configuración</h3>
-                      <p className="text-slate-500">Funcionalidades de configuración disponibles próximamente</p>
+                    <div className="space-y-6">
+                      <div className="text-center py-8">
+                        <Settings className="h-12 w-12 text-slate-400 mx-auto mb-4" />
+                        <h3 className="text-lg font-medium text-slate-600 mb-2">Panel de Configuración</h3>
+                        <p className="text-slate-500">Herramientas de configuración y verificación del sistema</p>
+                      </div>
+
+                      <DataTypeVerifier />
+                      <ScriptExecutor />
                     </div>
                   </CardContent>
                 </Card>

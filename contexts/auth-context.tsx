@@ -1,7 +1,6 @@
 "use client"
 
-import type React from "react"
-import { createContext, useContext, useState, useEffect } from "react"
+import { createContext, useContext, useState, useEffect, type ReactNode } from "react"
 
 interface User {
   id: string
@@ -11,10 +10,9 @@ interface User {
 
 interface AuthContextType {
   user: User | null
+  isLoading: boolean
   login: (username: string, password: string) => Promise<boolean>
   logout: () => void
-  isLoading: boolean
-  isAuthenticated: boolean
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined)
@@ -25,18 +23,19 @@ const DEMO_USERS = [
   { id: "3", username: "Rico", password: "rico25", role: "Supervisor" },
 ]
 
-export function AuthProvider({ children }: { children: React.ReactNode }) {
+export function AuthProvider({ children }: { children: ReactNode }) {
   const [user, setUser] = useState<User | null>(null)
   const [isLoading, setIsLoading] = useState(true)
 
   useEffect(() => {
-    // Check if user is logged in on app start
-    const savedUser = localStorage.getItem("gdspv-user")
+    // Verificar si hay una sesión guardada
+    const savedUser = localStorage.getItem("gdspv_user")
     if (savedUser) {
       try {
         setUser(JSON.parse(savedUser))
       } catch (error) {
-        localStorage.removeItem("gdspv-user")
+        console.error("Error parsing saved user:", error)
+        localStorage.removeItem("gdspv_user")
       }
     }
     setIsLoading(false)
@@ -45,7 +44,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   const login = async (username: string, password: string): Promise<boolean> => {
     setIsLoading(true)
 
-    // Simulate API call delay
+    // Simular delay de autenticación
     await new Promise((resolve) => setTimeout(resolve, 1000))
 
     const foundUser = DEMO_USERS.find((u) => u.username === username && u.password === password)
@@ -57,7 +56,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         role: foundUser.role,
       }
       setUser(userSession)
-      localStorage.setItem("gdspv-user", JSON.stringify(userSession))
+      localStorage.setItem("gdspv_user", JSON.stringify(userSession))
       setIsLoading(false)
       return true
     }
@@ -68,18 +67,10 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
   const logout = () => {
     setUser(null)
-    localStorage.removeItem("gdspv-user")
+    localStorage.removeItem("gdspv_user")
   }
 
-  const value = {
-    user,
-    login,
-    logout,
-    isLoading,
-    isAuthenticated: !!user,
-  }
-
-  return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>
+  return <AuthContext.Provider value={{ user, isLoading, login, logout }}>{children}</AuthContext.Provider>
 }
 
 export function useAuth() {
@@ -88,4 +79,8 @@ export function useAuth() {
     throw new Error("useAuth must be used within an AuthProvider")
   }
   return context
+}
+
+export const isAuthenticated = () => {
+  return !!localStorage.getItem("gdspv_user")
 }

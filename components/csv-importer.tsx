@@ -444,7 +444,12 @@ export default function CSVImporter({
             }
             // Manejar strings
             else {
-              mappedData[dbColumn] = value || null
+              // Para campos de descripción y solución, mantener string vacío en lugar de null
+              if (dbColumn === "descripcion" || dbColumn === "solucion" || dbColumn === "descripcion2") {
+                mappedData[dbColumn] = value || ""
+              } else {
+                mappedData[dbColumn] = value || null
+              }
             }
           })
 
@@ -854,7 +859,7 @@ export default function CSVImporter({
                 </p>
               </div>
               <div className="flex gap-3">
-                <Button variant="outline" className="flex-1" onClick={() => setShowDeleteModal(false)}>
+                <Button variant="outline" className="flex-1 bg-transparent" onClick={() => setShowDeleteModal(false)}>
                   Cancelar
                 </Button>
                 <Button variant="destructive" className="flex-1" onClick={deleteAllRecords} disabled={deleting}>
