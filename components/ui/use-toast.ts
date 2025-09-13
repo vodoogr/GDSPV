@@ -142,33 +142,19 @@ interface Toast {
 }
 
 export function toast({ title, description, variant = "default" }: Toast) {
-  const id = genId()
+  // Implementación simple usando alert por ahora
+  // En una implementación real, usarías una librería de toast como react-hot-toast
+  const message = description ? `${title}: ${description}` : title
 
-  const update = (props: Partial<ToasterToast>) =>
-    dispatch({
-      type: "UPDATE_TOAST",
-      toast: { ...props, id },
-    })
-  const dismiss = () => dispatch({ type: "DISMISS_TOAST", toastId: id })
-
-  dispatch({
-    type: "ADD_TOAST",
-    toast: {
-      id,
-      title,
-      description,
-      variant,
-      open: true,
-      onOpenChange: (open) => {
-        if (!open) dismiss()
-      },
-    },
-  })
-
-  return {
-    id: id,
-    dismiss,
-    update,
+  if (variant === "destructive") {
+    console.error(message)
+    alert(`❌ ${message}`)
+  } else if (variant === "warning") {
+    console.warn(message)
+    alert(`⚠️ ${message}`)
+  } else {
+    console.log(message)
+    alert(`✅ ${message}`)
   }
 }
 
